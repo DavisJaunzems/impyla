@@ -59,13 +59,13 @@ if six.PY3:
     # import thriftpy code
     from thriftpy import load
     from thriftpy.thrift import TClient
-    # TODO: reenable cython
-    # from thriftpy.protocol import TBinaryProtocol
-    from thriftpy.protocol.binary import TBinaryProtocol  # noqa
+    from thriftpy.protocol import TBinaryProtocol
+    # Uncomment if thriftpy cython interface causes trouble
+    # from thriftpy.protocol.binary import TBinaryProtocol  # noqa
     from thriftpy.transport import TSocket, TTransportException  # noqa
-    # TODO: reenable cython
-    # from thriftpy.transport import TBufferedTransport
-    from thriftpy.transport.buffered import TBufferedTransport  # noqa
+    from thriftpy.transport import TBufferedTransport
+    # Uncomment if thriftpy cython interface causes trouble
+    # from thriftpy.transport.buffered import TBufferedTransport  # noqa
     thrift_dir = os.path.join(os.path.dirname(__file__), 'thrift')
 
     # dynamically load the HS2 modules
@@ -105,7 +105,7 @@ def get_socket(host, port, use_ssl, ca_cert):
                 return TSSLSocket(host, port, validate=False)
             else:
                 return TSSLSocket(host, port, validate=True, ca_certs=ca_cert)
-        else:    
+        else:
             from thriftpy.transport.sslsocket import TSSLSocket
             if ca_cert is None:
                 return TSSLSocket(host, port, validate=False)
